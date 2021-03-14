@@ -97,6 +97,11 @@ namespace Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal
             RequirePassword = await _userManager.HasPasswordAsync(user);
             if (RequirePassword)
             {
+                if(!ModelState.IsValid)
+                {
+                    return Page();
+                }
+                
                 if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                 {
                     ModelState.AddModelError(string.Empty, "Incorrect password.");
